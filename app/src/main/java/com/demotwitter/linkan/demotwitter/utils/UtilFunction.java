@@ -13,105 +13,120 @@ import java.time.temporal.ChronoUnit;
 
 public final class UtilFunction {
 
-  private UtilFunction() {
-    // This utility class is not publicly instantiable
-  }
+    private UtilFunction() {
+        // This utility class is not publicly instantiable
+    }
 
-  public static String getVideoTime(Long videoTimeInMills) {
+    public static String getVideoTime(Long videoTimeInMills) {
 
-    String secondDelimeter = "";
-    String minuteDelimeter = "";
+        String secondDelimeter = "";
+        String minuteDelimeter = "";
 
-    if (videoTimeInMills != null && videoTimeInMills > 0) {
+        if (videoTimeInMills != null && videoTimeInMills > 0) {
 
-      try {
+            try {
 
-        if (videoTimeInMills / 1000 < 60) {
-          return "0" + ":" + String.valueOf(videoTimeInMills / 1000);
-        } else if (videoTimeInMills / 1000 >= 60 && videoTimeInMills / 1000 < 60 * 60) {
-          long minutes = (videoTimeInMills / 1000) / 60;
-          long seconds = (videoTimeInMills / 1000) % 60;
-          return String.valueOf(minutes) + ":" + String.valueOf(seconds);
-        } else {
-          long hours = (videoTimeInMills / 1000) / (60 * 60);
-          long minutes = (videoTimeInMills / 1000 / 60) % (60);
-          long seconds = (videoTimeInMills / 1000) % (60);
+                if (videoTimeInMills / 1000 < 60) {
+                    return "0" + ":" + String.valueOf(videoTimeInMills / 1000);
+                } else if (videoTimeInMills / 1000 >= 60 && videoTimeInMills / 1000 < 60 * 60) {
+                    long minutes = (videoTimeInMills / 1000) / 60;
+                    long seconds = (videoTimeInMills / 1000) % 60;
+                    return String.valueOf(minutes) + ":" + String.valueOf(seconds);
+                } else {
+                    long hours = (videoTimeInMills / 1000) / (60 * 60);
+                    long minutes = (videoTimeInMills / 1000 / 60) % (60);
+                    long seconds = (videoTimeInMills / 1000) % (60);
 
-          if (seconds <= 9)
-            secondDelimeter = "0";
+                    if (seconds <= 9)
+                        secondDelimeter = "0";
 
-          if (minutes <= 9)
-            minuteDelimeter = "0";
+                    if (minutes <= 9)
+                        minuteDelimeter = "0";
 
-          return String.valueOf(hours) + ":" + minuteDelimeter + String.valueOf(minutes) + ":" + secondDelimeter + String.valueOf(seconds);
+                    return String.valueOf(hours) + ":" + minuteDelimeter + String.valueOf(minutes) + ":" + secondDelimeter + String.valueOf(seconds);
+
+                }
+            } catch (IllegalArgumentException e) {
+                return "";
+            }
+        }
+
+        return "";
+
+    }
+
+
+    public static String getTweetCreatedAt(String stringDate) {
+
+        DateTimeFormatter formatter = null;
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+
+            formatter = DateTimeFormatter.ofPattern(AppConstants.DATE_TIME_FORMAT);
+            LocalDateTime dateTime = LocalDateTime.parse(stringDate, formatter);
+
+            LocalDateTime to = LocalDateTime.now();
+
+            LocalDateTime fromTemp = LocalDateTime.from(dateTime);
+
+
+            try {
+
+                if (fromTemp.until(to, ChronoUnit.SECONDS) < 60) {
+                    return fromTemp.until(to, ChronoUnit.SECONDS) + "s";
+                } else if (fromTemp.until(to, ChronoUnit.MINUTES) < 60) {
+                    return fromTemp.until(to, ChronoUnit.MINUTES) + "m";
+                } else if (fromTemp.until(to, ChronoUnit.HOURS) < 24) {
+                    return fromTemp.until(to, ChronoUnit.HOURS) + "h";
+                } else {
+                    return fromTemp.until(to, ChronoUnit.DAYS) + "d";
+                }
+            } catch (IllegalArgumentException e) {
+                return "";
+            }
 
         }
-      } catch (IllegalArgumentException e) {
+
         return "";
-      }
     }
 
-    return "";
 
-  }
-
-
-  public static String getTweetCreatedAt(String stringDate) {
-
-    DateTimeFormatter formatter = null;
-
-    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-
-      formatter = DateTimeFormatter.ofPattern(AppConstants.DATE_TIME_FORMAT);
-      LocalDateTime dateTime = LocalDateTime.parse(stringDate, formatter);
-
-      LocalDateTime to = LocalDateTime.now();
-
-      LocalDateTime fromTemp = LocalDateTime.from(dateTime);
-
-
-      try {
-
-        if (fromTemp.until(to, ChronoUnit.SECONDS) < 60) {
-          return fromTemp.until(to, ChronoUnit.SECONDS) + "s";
-        } else if (fromTemp.until(to, ChronoUnit.MINUTES) < 60) {
-          return fromTemp.until(to, ChronoUnit.MINUTES) + "m";
-        } else if (fromTemp.until(to, ChronoUnit.HOURS) < 24) {
-          return fromTemp.until(to, ChronoUnit.HOURS) + "h";
-        } else {
-          return fromTemp.until(to, ChronoUnit.DAYS) + "d";
+    public static String getTweetCreatedAt(String createdAt, DateTime now) {
+        if (createdAt == null) {
+            return "";
         }
-      } catch (IllegalArgumentException e) {
-        return "";
-      }
 
+        org.joda.time.format.DateTimeFormatter dtf = DateTimeFormat.forPattern(AppConstants.DATE_TIME_FORMAT);
+        try {
+            DateTime created = dtf.parseDateTime(createdAt);
+
+            if (Seconds.secondsBetween(created, now).getSeconds() < 60) {
+                return Seconds.secondsBetween(created, now).getSeconds() + "s";
+            } else if (Minutes.minutesBetween(created, now).getMinutes() < 60) {
+                return Minutes.minutesBetween(created, now).getMinutes() + "m";
+            } else if (Hours.hoursBetween(created, now).getHours() < 24) {
+                return Hours.hoursBetween(created, now).getHours() + "h";
+            } else {
+                return Days.daysBetween(created, now).getDays() + "d";
+            }
+        } catch (IllegalArgumentException e) {
+            return "";
+        }
     }
 
-    return "";
-  }
+    public static String getTweetCount(Integer favoriteCount) {
+        String like, likeInK;
+        if (favoriteCount >= 1000) {
+            likeInK = String.valueOf(favoriteCount / 1000);
+            like = String.valueOf(favoriteCount / 100);
 
+            if ((favoriteCount / 100) % 100 == 0)
+                return likeInK + "." + like + "K";
+            else
+                return likeInK + "," + like;
+        } else
+            return String.valueOf(favoriteCount);
 
-  public static String getTweetCreatedAt(String createdAt, DateTime now) {
-    if (createdAt == null) {
-      return "";
     }
-
-    org.joda.time.format.DateTimeFormatter dtf = DateTimeFormat.forPattern(AppConstants.DATE_TIME_FORMAT);
-    try {
-      DateTime created = dtf.parseDateTime(createdAt);
-
-      if (Seconds.secondsBetween(created, now).getSeconds() < 60) {
-        return Seconds.secondsBetween(created, now).getSeconds() + "s";
-      } else if (Minutes.minutesBetween(created, now).getMinutes() < 60) {
-        return Minutes.minutesBetween(created, now).getMinutes() + "m";
-      } else if (Hours.hoursBetween(created, now).getHours() < 24) {
-        return Hours.hoursBetween(created, now).getHours() + "h";
-      } else {
-        return Days.daysBetween(created, now).getDays() + "d";
-      }
-    } catch (IllegalArgumentException e) {
-      return "";
-    }
-  }
 
 }

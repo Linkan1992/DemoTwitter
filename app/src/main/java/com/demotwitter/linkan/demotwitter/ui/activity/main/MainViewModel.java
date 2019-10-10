@@ -65,7 +65,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                         .subscribe(user -> {
                                     MainViewModel.super.userAvatarUrl.set(user.profileImageUrlHttps);
                                     getDataManager().setUserAvatarUrl(user.profileImageUrlHttps);
-                                  //  getNavigator().showToast("fetchUserDetail Success => " + user.name);
+                                    //  getNavigator().showToast("fetchUserDetail Success => " + user.name);
                                 },
                                 error -> {
                                     MainViewModel.super.userAvatarUrl.set(getDataManager().getUserAvatarUrl());
@@ -116,8 +116,8 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
             paginateOfflineTweet(AppConstants.FEED_COUNT_PER_PAGE, offset);
 
-            if(!isPaging)
-            getNavigator().showToast("No Internet Connection");
+            if (!isPaging)
+                getNavigator().showToast("No Internet Connection");
         }
     }
 
@@ -241,7 +241,13 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                     timelineFeed.setMedia_url4(tweet.extendedEntities.media.get(i).mediaUrlHttps);
             }
 
-            timelineFeed.setFavourite_count(String.valueOf(tweet.favoriteCount));
+//            timelineFeed.setFavourite_count(String.valueOf(
+//                    tweet.favoriteCount > 1000 ? tweet.favoriteCount % 1000 : tweet.favoriteCount
+//            ));
+
+
+            timelineFeed.setFavourite_count(UtilFunction.getTweetCount(tweet.favoriteCount));
+
             timelineFeed.setReTweet_count(String.valueOf(tweet.retweetCount));
 
             feedList.add(timelineFeed);
