@@ -12,16 +12,31 @@ android {
         vectorDrawables.useSupportLibrary = true
 
     }
+
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
+
     buildTypes {
 
         debug {
             minifyEnabled false
+            buildConfigField("String", "SIGNING_KEY", "\"DemoTwitterLinkan.jks\"")
+            buildConfigField("String", "PASSWORD", "\"8080218232@lL1\"")
             buildConfigField("String", "CONSUMER_KEY", "\"UXW5oXdCE4QYqQF1hHVBUzBXd\"")
             buildConfigField("String", "CONSUMER_SECRET", "\"qtt3rDMO6rr6dV2sHOn0WkisezHp4kG9l4OzrAqRiFx2u3YSgf\"")
         }
 
         release {
-            minifyEnabled false
+            minifyEnabled true
+            // Enables resource shrinking, which is performed by the
+            // Android Gradle plugin.
+            shrinkResources true
+
+            buildConfigField("String", "SIGNING_KEY", "\"DemoTwitterLinkan.jks\"")
+            buildConfigField("String", "PASSWORD", "\"8080218232@lL1\"")
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

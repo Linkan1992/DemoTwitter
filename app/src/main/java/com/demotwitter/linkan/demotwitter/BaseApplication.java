@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 
 import com.demotwitter.linkan.demotwitter.di.component.DaggerAppComponent;
+import com.demotwitter.linkan.demotwitter.utils.AppConstants;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
@@ -38,7 +39,7 @@ public class BaseApplication extends Application implements HasActivityInjector 
                 new TwitterConfig
                         .Builder(this)
                         .twitterAuthConfig(
-                                new TwitterAuthConfig(BuildConfig.CONSUMER_KEY, BuildConfig.CONSUMER_SECRET)
+                                new TwitterAuthConfig(AppConstants.CONSUMER_KEY, AppConstants.CONSUMER_SECRET)
                         )
                         .build()
         );

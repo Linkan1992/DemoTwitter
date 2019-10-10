@@ -19,3 +19,15 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+#-dontwarn com/demotwitter/linkan/demotwitter/utils/BindingUtils.java**
+#
+#-dontwarn com/demotwitter/linkan/demotwitter/data/local/dao/AppDatabase.java**
+
+-dontwarn com.google.errorprone.annotations.DoNotMock**
+
+-dontwarn com.google.errorprone.annotations.ForOverride**
+
+-dontwarn  com.google.errorprone.annotations.CanIgnoreReturnValue**
+
+-dontwarn com.google.errorprone.annotations.CheckReturnValue**

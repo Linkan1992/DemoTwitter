@@ -18,6 +18,10 @@ public final class AppConstants {
 
     public static final String STATUS_CODE_SUCCESS = "success";
 
+    public static final String CONSUMER_KEY = "UXW5oXdCE4QYqQF1hHVBUzBXd";
+
+    public static final String CONSUMER_SECRET = "qtt3rDMO6rr6dV2sHOn0WkisezHp4kG9l4OzrAqRiFx2u3YSgf";
+
     public static class Extras {
 
         public static final String USERNAME = "userName";
