@@ -102,7 +102,7 @@ public abstract class BaseViewModel<N extends BaseNavigator> extends ViewModel {
         public void onSubscribe(Disposable disposable) {
             referenceTime = new AtomicLong();
             referenceTime.set(System.currentTimeMillis());
-           // setIsLoading(true);
+          //  setIsLoading(true);
             getCompositeDisposable().add(disposable);
 
             showLogs("BaseObserver onSubscribe", "");
