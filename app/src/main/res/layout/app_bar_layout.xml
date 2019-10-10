@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="com.demotwitter.linkan.demotwitter.base.BaseViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/img_profile"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:padding="5dp"
+                    android:scaleType="fitCenter"
+                    fresco:placeholderImage="@drawable/ic_twitter_logo_blue"
+                    fresco:failureImage="@drawable/tw__composer_logo_blue"
+                    fresco:roundAsCircle="true"
+                    app:imageUrl="@{ viewModel.userAvatarUrl }"
+                    android:visibility="@{viewModel.userProfileVisible ? View.VISIBLE : View.GONE}"/>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    style="@style/Toolbar"
+                    app:subtitleTextColor="@color/white"
+                    app:titleTextAppearance="@style/Toolbar.TitleText"
+                    app:titleTextColor="@color/white" />
+
+            </LinearLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+    </LinearLayout>
+
+</layout>

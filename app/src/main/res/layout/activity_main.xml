@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+  <data>
+
+    <import type="android.view.View" />
+
+    <variable
+      name="viewModel"
+      type="com.demotwitter.linkan.demotwitter.ui.activity.main.MainViewModel" />
+
+  </data>
+
+
+  <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.activity.main.MainActivity">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center"
+      android:orientation="vertical">
+
+      <!--app bar layout-->
+      <include
+        android:id="@+id/included_app_bar"
+        layout="@layout/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bind:viewModel="@{(com.demotwitter.linkan.demotwitter.base.BaseViewModel) viewModel}" />
+
+
+      <!--cart Item recylerview layout-->
+      <android.support.v7.widget.RecyclerView
+        android:id="@+id/tweet_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:tweetAdapter="@{ viewModel.feedListObservable }"
+        app:noMoreData="@{ viewModel.noMoreDataAvailable }"
+        tools:listItem="@layout/feed_tweet_row_layout"/>
+
+    </LinearLayout>
+
+    <!-- Adding progress layout -->
+    <include
+      android:id="@+id/included_base_progress_loader"
+      layout="@layout/base_progress_loader"
+      bind:viewModel="@{(com.demotwitter.linkan.demotwitter.base.BaseViewModel) viewModel}" />
+
+
+  </RelativeLayout>
+
+</layout>

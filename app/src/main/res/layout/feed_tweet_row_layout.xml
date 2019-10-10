@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+  <data>
+
+    <import type="android.view.View" />
+
+    <variable
+      name="viewModel"
+      type="com.demotwitter.linkan.demotwitter.ui.adapter.TimelineFeedViewModel" />
+
+  </data>
+
+
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/light_gray"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp">
+
+    <android.support.v7.widget.CardView
+      android:id="@+id/product_card"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:foreground="?attr/selectableItemBackground"
+      app:cardBackgroundColor="@color/bg_color"
+      app:cardElevation="4dp">
+
+      <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+          android:id="@+id/img_profile"
+          android:layout_width="70dp"
+          android:layout_height="70dp"
+          android:layout_gravity="start"
+          android:padding="5dp"
+          android:scaleType="fitCenter"
+          app:imageUrl="@{ viewModel.profile_url }"
+          fresco:placeholderImage="@drawable/ic_twitter_logo_blue"
+          fresco:failureImage="@drawable/tw__composer_logo_blue"
+          fresco:roundAsCircle="true"/>
+
+      <!--  <ImageView
+          android:id="@+id/img_profile"
+          android:layout_width="60dp"
+          android:layout_height="60dp"
+          android:layout_gravity="start"
+          android:padding="8dp"
+          android:scaleType="fitCenter"
+          app:profileUrl="@{ viewModel.profile_url }"
+          app:srcCompat="@drawable/tw__composer_logo_blue"
+          tools:src="@drawable/tw__composer_logo_blue"/>-->
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginRight="8dp"
+          android:layout_toRightOf="@id/img_profile"
+          android:orientation="vertical">
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+              android:id="@+id/tv_username"
+              style="@style/TextAppearance.AppCompat.Medium"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@{viewModel.name}"
+              android:textColor="@color/blue_black_dark"
+              android:textStyle="bold"
+              tools:text="Linkan Chauhan"/>
+
+            <TextView
+              android:id="@+id/tv_user_screenName"
+              style="@style/TextAppearance.AppCompat.Menu"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@{viewModel.screen_name }"
+              android:textColor="@color/dark_gray"
+              android:textStyle="normal"
+              tools:text=" '@'ChauhanLinkan"/>
+
+            <TextView
+              android:id="@+id/tv_created_at"
+              style="@style/TextAppearance.AppCompat.Menu"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_gravity="end|center_vertical"
+              android:gravity="end"
+              android:text="@{viewModel.tweet_time }"
+              android:textColor="@color/dark_gray"
+              android:textStyle="normal"
+              tools:text="1d"/>
+
+          </LinearLayout>
+
+          <TextView
+            android:id="@+id/tv_tweet_text"
+            style="@style/TextAppearance.AppCompat.Menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@{viewModel.tweet_text}"
+            android:textColor="@color/blue_black_dark"
+            android:textStyle="normal"
+            android:linksClickable="true"
+            android:autoLink="web"
+            android:textColorLink="@color/light_blue"
+            tools:text="Very good! cleanliness powered by commmunity initiative is always wonderful to see. Congratulations to everyone who has worked on this Swachhata effort." />
+
+          <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/light_gray"
+            app:cardCornerRadius="18dp"
+            android:visibility="@{ viewModel.mediaHide ? View.GONE : View.VISIBLE}">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+              android:id="@+id/image_shared"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_gravity="start"
+              android:minHeight="170dp"
+              android:scaleType="fitCenter"
+              app:imageUrl="@{ viewModel.media_url1 }"
+              fresco:placeholderImage="@drawable/ic_twitter_logo_blue"
+              fresco:roundAsCircle="false"
+              fresco:roundedCornerRadius="8dp"
+              fresco:roundTopLeft="true"
+              fresco:roundTopRight="true"
+              fresco:roundBottomLeft="true"
+              fresco:roundBottomRight="true"
+              fresco:roundingBorderWidth="2dp"/>
+
+            <ImageView
+              android:id="@+id/tv_play_icon"
+              android:layout_width="60dp"
+              android:layout_height="60dp"
+              android:layout_gravity="center"
+                android:padding="5dp"
+              android:scaleType="fitCenter"
+              app:srcCompat="@drawable/ic_play_button3"
+              tools:src="@drawable/ic_play_button3"
+              android:visibility="@{ viewModel.playIconHide ? View.GONE : View.VISIBLE}"/>
+
+            <TextView
+              android:id="@+id/tv_vedio_length"
+              style="@style/TextAppearance.AppCompat.Small"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="start|bottom"
+              android:layout_margin="16dp"
+              android:textColor="@color/white"
+              android:background="@color/dark_gray"
+              android:paddingLeft="4dp"
+              android:paddingRight="4dp"
+              android:paddingBottom="2dp"
+              android:paddingTop="2dp"
+              android:alpha="0.7"
+              android:textStyle="normal"
+              android:text="@{ viewModel.video_length }"
+              android:visibility="@{ viewModel.playIconHide ? View.GONE : View.VISIBLE}"
+              tools:text="05:35" />
+
+          </android.support.v7.widget.CardView>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+              android:id="@+id/tv_retweet_icon"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:padding="8dp"
+              android:scaleType="fitCenter"
+              app:srcCompat="@drawable/ic_retweet"
+              tools:src="@drawable/ic_retweet" />
+
+            <TextView
+              android:id="@+id/tv_retweet_count"
+              style="@style/TextAppearance.AppCompat.Small"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:text="@{viewModel.retweet_count}"
+              android:textColor="@color/blue_black_dark"
+              android:textStyle="normal"
+              tools:text="1,785"/>
+
+            <ImageView
+              android:id="@+id/tv_favourite_icon"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout_marginLeft="50dp"
+              android:padding="8dp"
+              android:scaleType="fitCenter"
+              app:srcCompat="@drawable/ic_like"
+              tools:src="@drawable/ic_like" />
+
+            <TextView
+              android:id="@+id/tv_favourite_count"
+              style="@style/TextAppearance.AppCompat.Small"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:text="@{viewModel.favourite_count}"
+              android:textColor="@color/dark_gray"
+              android:textStyle="normal"
+              tools:text="10.9K"/>
+
+            <TextView
+              android:id="@+id/tv_link"
+              style="@style/TextAppearance.AppCompat.Small"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:layout_marginLeft="10dp"
+              android:text="@{viewModel.tweet_link}"
+              android:textColor="@color/dark_gray"
+              android:textStyle="normal"
+              android:linksClickable="true"
+              android:autoLink="web"
+              android:textColorLink="@color/light_blue"
+              tools:text="https://t.co/WCjdxjAcX3"
+              android:visibility="gone"/>
+
+          </LinearLayout>
+
+        </LinearLayout>
+
+      </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+  </LinearLayout>
+
+</layout>

@@ -1,0 +1,12 @@
+<resources>
+  <string name="app_name">DemoTwitter</string>
+
+  <string name="login">Login</string>
+  <string name="home">Home</string>
+
+  <!--empty state-->
+  <string name="empty_screen">No feed is available\nhere right now.</string>
+  <string name="please_retry">Please Retry</string>
+  <string name="retry">Retry</string>
+
+</resources>

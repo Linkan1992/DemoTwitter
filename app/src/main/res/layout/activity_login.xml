@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.demotwitter.linkan.demotwitter.ui.activity.login.LoginViewModel" />
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_color"
+        tools:context=".ui.activity.login.LoginActivity">
+
+        <!--app bar layout-->
+        <include
+            android:id="@+id/included_app_bar"
+            layout="@layout/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            bind:viewModel="@{(com.demotwitter.linkan.demotwitter.base.BaseViewModel) viewModel}" />
+
+
+        <Button
+            android:id="@+id/btn_show_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200px"
+            android:background="@color/colorPrimary"
+            android:onClick="@{ () -> viewModel.showUser() }"
+            android:text="Show User"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_timeline_feed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="350px"
+            android:background="@color/colorPrimary"
+            android:onClick="@{ () -> viewModel.fetchTimelineFeed() }"
+            android:text="fetch feeds"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.twitter.sdk.android.core.identity.TwitterLoginButton
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:signInWithTwitter="@{ viewModel.signInWithTwitter }" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

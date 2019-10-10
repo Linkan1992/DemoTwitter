@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.demotwitter.linkan.demotwitter.base.EmptyFeedViewModel" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.isVisible ? View.VISIBLE : View.GONE}">
+
+            <ImageView
+                android:id="@+id/imageViewEmpty"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_twitter_logo_blue" />
+
+            <TextView
+                android:id="@+id/tv_message"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="14dp"
+                android:gravity="center"
+                android:text="@string/empty_screen"
+                android:textColor="@color/dark_gray"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_sub_message"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:text="@string/please_retry"
+                android:textColor="@color/dark_gray" />
+
+            <Button
+                android:id="@+id/btn_retry"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:background="@color/light_blue"
+                android:textColor="@color/blue_black_dark"
+                android:textStyle="normal"
+                android:onClick="@{() -> viewModel.onRetry()}"
+                android:text="@string/retry"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+</layout>
