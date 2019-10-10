@@ -241,14 +241,10 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                     timelineFeed.setMedia_url4(tweet.extendedEntities.media.get(i).mediaUrlHttps);
             }
 
-//            timelineFeed.setFavourite_count(String.valueOf(
-//                    tweet.favoriteCount > 1000 ? tweet.favoriteCount % 1000 : tweet.favoriteCount
-//            ));
 
+            timelineFeed.setFavourite_count(UtilFunction.getLikeCount(tweet.favoriteCount));
 
-            timelineFeed.setFavourite_count(UtilFunction.getTweetCount(tweet.favoriteCount));
-
-            timelineFeed.setReTweet_count(String.valueOf(tweet.retweetCount));
+            timelineFeed.setReTweet_count(UtilFunction.getReTweetCount(tweet.retweetCount));
 
             feedList.add(timelineFeed);
 

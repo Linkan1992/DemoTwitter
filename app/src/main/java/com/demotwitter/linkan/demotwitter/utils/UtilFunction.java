@@ -114,7 +114,7 @@ public final class UtilFunction {
         }
     }
 
-    public static String getTweetCount(Integer favoriteCount) {
+    public static String getLikeCount(Integer favoriteCount) {
         String like, likeInK;
         if (favoriteCount >= 1000) {
             likeInK = String.valueOf(favoriteCount / 1000);
@@ -126,6 +126,26 @@ public final class UtilFunction {
                 return likeInK + "," + like;
         } else
             return String.valueOf(favoriteCount);
+
+    }
+
+
+    public static String getReTweetCount(Integer reTweetCount) {
+        String reTweet, reTweetInK;
+        if (reTweetCount >= 1000) {
+            reTweetInK = String.valueOf(reTweetCount / 1000);
+            reTweet = String.valueOf(reTweetCount / 100);
+
+            return reTweetInK + "," + reTweet;
+       }
+/*      else if (reTweetCount > 100) {
+            reTweetInK = String.valueOf(reTweetCount / 100);
+            reTweet = String.valueOf(reTweetCount / 10);
+
+            return reTweetInK + "," + reTweet;
+
+        } else*/
+            return String.valueOf(reTweetCount);
 
     }
 
