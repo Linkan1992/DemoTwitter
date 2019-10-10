@@ -102,7 +102,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void handleError(Throwable throwable) {
         if (throwable instanceof TwitterException) {
-            getViewModel().paginateOfflineTweet(AppConstants.FEED_COUNT_PER_PAGE, offset);
+            getViewModel().paginateOfflineTweet(AppConstants.FEED_COUNT_PER_PAGE, true, offset);
         }
         super.handleError(throwable);
     }

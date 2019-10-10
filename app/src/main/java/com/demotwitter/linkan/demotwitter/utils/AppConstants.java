@@ -12,13 +12,13 @@ public final class AppConstants {
 
     public static final Integer FEED_COUNT_PER_PAGE = 20;
 
-    public static final String  DATE_TIME_FORMAT = "EEE MMM dd HH:mm:ss Z yyyy";
+    public static final String DATE_TIME_FORMAT = "EEE MMM dd HH:mm:ss Z yyyy";
 
     public static final String STATUS_CODE_FAILED = "failed";
 
     public static final String STATUS_CODE_SUCCESS = "success";
 
-    public static class Extras{
+    public static class Extras {
 
         public static final String USERNAME = "userName";
 

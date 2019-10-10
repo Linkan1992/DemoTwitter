@@ -23,6 +23,13 @@ import java.util.List;
 
 public class MainViewModel extends BaseViewModel<MainNavigator> {
 
+    /**
+     * Timeline Feed count is dynamic you can change it from
+     * AppConstants file --> FEED_COUNT_PER_PAGE
+     * FEED_COUNT_PER_PAGE <= 200 && FEED_COUNT_PER_PAGE > 0
+     * FEED_COUNT_PER_PAGE Default value is 20
+     */
+
 
     private final MutableLiveData<List<TimelineFeed>> timeLineFeedLiveData = new MutableLiveData<>();
 
@@ -58,7 +65,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                         .subscribe(user -> {
                                     MainViewModel.super.userAvatarUrl.set(user.profileImageUrlHttps);
                                     getDataManager().setUserAvatarUrl(user.profileImageUrlHttps);
-                                    getNavigator().showToast("fetchUserDetail Success => " + user.name);
+                                    //  getNavigator().showToast("fetchUserDetail Success => " + user.name);
                                 },
                                 error -> {
                                     MainViewModel.super.userAvatarUrl.set(getDataManager().getUserAvatarUrl());
@@ -70,10 +77,12 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public void fetchTimelineFeeds(Long sinceId, Long maxId, boolean isPaging, int offset) {
 
         if ((((BaseActivity) getNavigator()).isNetworkConnected())) {
+
             /**
              * if not paging then only show main loader
              */
             setIsLoading(!isPaging);
+
             getDataManager()
                     .fetchTimelineFeed(AppConstants.FEED_COUNT_PER_PAGE, null, maxId, null, null, null, null)
                     .map(this::getTimelineFeedList)
@@ -106,9 +115,10 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 //      if (!fetchedFromDb)
 //        fetchOfflineTweet();
 
-            paginateOfflineTweet(AppConstants.FEED_COUNT_PER_PAGE, offset);
+            paginateOfflineTweet(AppConstants.FEED_COUNT_PER_PAGE, isPaging, offset);
 
-            getNavigator().showToast("No Internet Connection");
+            if (!isPaging)
+                getNavigator().showToast("No Internet Connection");
         }
     }
 
@@ -146,7 +156,12 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
 
-    public void paginateOfflineTweet(int feedCountPerPage, int offset) {
+    public void paginateOfflineTweet(int feedCountPerPage, boolean isPaging, int offset) {
+        /**
+         * if not paging then only show main loader
+         */
+        setIsLoading(true);
+
         getCompositeDisposable().add(
                 getDataManager()
                         .paginateTweetFeed(feedCountPerPage, offset)
@@ -168,8 +183,10 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                                         getNavigator().changeRetryVisibility(true);
                                     }
 
+                                    setIsLoading(false);
                                 },
                                 error -> {
+                                    setIsLoading(false);
                                     getNavigator().showToast("pagination offline fetch failed");
                                 }
                         ));

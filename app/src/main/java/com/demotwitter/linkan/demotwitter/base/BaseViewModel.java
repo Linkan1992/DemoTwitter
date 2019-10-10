@@ -37,7 +37,7 @@ public abstract class BaseViewModel<N extends BaseNavigator> extends ViewModel {
 
     public final ObservableBoolean userProfileVisible = new ObservableBoolean(false);
 
-    public final ObservableField<String> userAvatarUrl = new ObservableField<>();
+    public final ObservableField<String> userAvatarUrl;
 
 
     public BaseViewModel(DataManager dataManager,
@@ -45,6 +45,8 @@ public abstract class BaseViewModel<N extends BaseNavigator> extends ViewModel {
         this.mDataManager = dataManager;
         this.mSchedulerProvider = scheduleProvider;
         this.mCompositeDisposable = new CompositeDisposable();
+
+        userAvatarUrl = new ObservableField<>(getDataManager().getUserAvatarUrl());
     }
 
 
