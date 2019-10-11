@@ -170,7 +170,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void onRetryClick() {
+
         getViewModel().fetchTimelineFeeds(null, null, false, offset);
+
+        if(getViewModel().getDataManager().getUserAvatarUrl().length() <= 0)
+            getViewModel().showUser();
     }
 
     @Override

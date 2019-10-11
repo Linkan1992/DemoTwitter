@@ -189,17 +189,17 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
                 || (throwable instanceof TwitterException
                 && throwable.getCause() instanceof UnknownHostException)
                 )
-            getViewModel().getNavigator().showToast("No Internet Connection");
-        else if (throwable instanceof TwitterException && ((TwitterApiException) throwable).getStatusCode() == 429)
-            getViewModel().getNavigator().showToast("You exhausted your rate limit");
+            showToast("Network Connection Error");
+        else if (throwable instanceof TwitterApiException && ((TwitterApiException) throwable).getStatusCode() == 429)
+            showToast("You exhausted your rate limit");
         else
-            getViewModel().getNavigator().showToast(throwable.getMessage());
+            showToast(throwable.getMessage());
 
     }
 
     @Override
     public void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
 
